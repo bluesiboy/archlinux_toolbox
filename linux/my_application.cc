@@ -37,7 +37,9 @@ static void my_application_activate(GApplication* application) {
     }
   }
 #endif
-  if (use_header_bar) {
+  const char* desk_session = getenv("DESKTOP_SESSION");
+  const gboolean needGTK = strcmp(desk_session, "plasma") != 0;
+  if (use_header_bar && needGTK) {
     GtkHeaderBar* header_bar = GTK_HEADER_BAR(gtk_header_bar_new());
     gtk_widget_show(GTK_WIDGET(header_bar));
     gtk_header_bar_set_title(header_bar, "archlinux toolbox");
